@@ -38,7 +38,7 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
             <AntDesign
               name={'search1'}
               size={horizontalResponsive(14.25)}
-              color={Theme.black}
+              color={Theme.TextColor}
             />
           </View>
         </View>
