@@ -10,7 +10,7 @@ export default function WatchStack() {
   return (
     <WatchStackNavigator.Navigator
       initialRouteName="WatchScreen"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{headerShown: false, animation: 'ios_from_right'}}>
       <WatchStackNavigator.Screen name="WatchScreen" component={WatchScreen} />
       <WatchStackNavigator.Screen
         name="DetailScreen"

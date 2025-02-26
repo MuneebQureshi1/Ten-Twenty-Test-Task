@@ -1,4 +1,9 @@
-import {ImageBackground, ScrollView, View} from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {Theme} from '../../../constants/Theme';
 import {useHideTabBar} from '../../../hooks/useHideTabBar';
@@ -18,10 +23,11 @@ import {getImageUrl, getRandomColor} from '../../../utils/Helper';
 import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {RouteProp} from '@react-navigation/native';
+import CustomShimmer from '../../../components/CustomShimmer/CustomShimmer';
 
 interface MovieDetailScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'DetailScreen'>;
-  route: RouteProp<WatchStackParamsList, 'DetailScreen'>; // Add route prop
+  route: RouteProp<WatchStackParamsList, 'DetailScreen'>;
 }
 
 const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
@@ -35,82 +41,113 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
     getMoviesDetailApi,
     movieId,
   );
-
   return (
     <ScrollView
       bounces={false}
       showsVerticalScrollIndicator={false}
       style={MovieDetailScreenStyles.scrollView}>
-      <ImageBackground
-        source={{
-          uri: getImageUrl(moviesDetails?.poster_path),
-        }}
-        style={MovieDetailScreenStyles.imageBackground}>
-        <LinearGradient
-          colors={[Theme.transparent, Theme.blackWithOpacity9]}
-          style={WatchMainScreenStyles.gradient}>
-          <View style={MovieDetailScreenStyles.gradientContainer}>
-            <View style={MovieDetailScreenStyles.headerContainer}>
-              <View style={globalStyle.verticalAlignment}>
-                <AntDesign
-                  name={'left'}
-                  color={Theme.bottomBarActiveText}
-                  size={horizontalResponsive(18)}
+      {/* Background Image with Shimmer Effect */}
+      {loading ? (
+        <CustomShimmer
+          style={[MovieDetailScreenStyles.imageBackground, globalStyle.w100]}
+        />
+      ) : (
+        <ImageBackground
+          source={{
+            uri: getImageUrl(moviesDetails?.poster_path),
+          }}
+          style={MovieDetailScreenStyles.imageBackground}>
+          <LinearGradient
+            colors={[Theme.transparent, Theme.blackWithOpacity9]}
+            style={WatchMainScreenStyles.gradient}>
+            <View style={MovieDetailScreenStyles.gradientContainer}>
+              <View style={MovieDetailScreenStyles.headerContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                  style={globalStyle.verticalAlignment}>
+                  <AntDesign
+                    name={'left'}
+                    color={Theme.bottomBarActiveText}
+                    size={horizontalResponsive(18)}
+                  />
+                </TouchableOpacity>
+                <View style={globalStyle.verticalAlignment}>
+                  <CustomText style={MovieDetailScreenStyles.watchText}>
+                    {TextList.watch}
+                  </CustomText>
+                </View>
+              </View>
+              <View style={MovieDetailScreenStyles.bottomContainer}>
+                {loading ? (
+                  // @ts-ignore
+                  <CustomShimmer style={MovieDetailScreenStyles.releaseDate} />
+                ) : (
+                  <CustomText style={MovieDetailScreenStyles.releaseDate}>
+                    In theaters {moviesDetails?.release_date}
+                  </CustomText>
+                )}
+                <CustomButton title={TextList.get_tickets} />
+                <CustomButton
+                  title={TextList.watch_trailer}
+                  textStyle={MovieDetailScreenStyles.trailerText}
+                  style={MovieDetailScreenStyles.trailerButton}
+                  leftIcon={
+                    <Entypo
+                      name="controller-play"
+                      color={Theme.bottomBarActiveText}
+                      size={horizontalResponsive(20)}
+                      style={MovieDetailScreenStyles.playIcon}
+                    />
+                  }
                 />
               </View>
-              <View style={globalStyle.verticalAlignment}>
-                <CustomText style={MovieDetailScreenStyles.watchText}>
-                  {TextList.watch}
-                </CustomText>
-              </View>
             </View>
-            <View style={MovieDetailScreenStyles.bottomContainer}>
-              <CustomText style={MovieDetailScreenStyles.releaseDate}>
-                In theaters {moviesDetails?.release_date}
-              </CustomText>
-              <CustomButton title={TextList.get_tickets} />
-              <CustomButton
-                title={TextList.watch_trailer}
-                textStyle={MovieDetailScreenStyles.trailerText}
-                style={MovieDetailScreenStyles.trailerButton}
-                leftIcon={
-                  <Entypo
-                    name="controller-play"
-                    color={Theme.bottomBarActiveText}
-                    size={horizontalResponsive(20)}
-                    style={MovieDetailScreenStyles.playIcon}
-                  />
-                }
-              />
-            </View>
-          </View>
-        </LinearGradient>
-      </ImageBackground>
+          </LinearGradient>
+        </ImageBackground>
+      )}
+
       <View style={MovieDetailScreenStyles.container}>
+        {/* Genres */}
         <CustomText style={MovieDetailScreenStyles.sectionTitle}>
           {TextList.genres}
         </CustomText>
         <View style={MovieDetailScreenStyles.genreContainer}>
-          {moviesDetails?.genres?.map((genre: {id: number; name: string}) => (
-            <View
-              key={genre?.id}
-              style={[
-                MovieDetailScreenStyles.genreBadge,
-                {backgroundColor: getRandomColor()},
-              ]}>
-              <CustomText style={MovieDetailScreenStyles.genreCustomText}>
-                {genre?.name}
-              </CustomText>
-            </View>
-          ))}
+          {loading
+            ? Array.from({length: 3}).map((_, index) => (
+                <CustomShimmer
+                  key={index}
+                  style={MovieDetailScreenStyles.genreshimmer}
+                />
+              ))
+            : moviesDetails?.genres?.map(
+                (genre: {id: number; name: string}) => (
+                  <View
+                    key={genre?.id}
+                    style={[
+                      MovieDetailScreenStyles.genreBadge,
+                      {backgroundColor: getRandomColor()},
+                    ]}>
+                    <CustomText style={MovieDetailScreenStyles.genreCustomText}>
+                      {genre?.name}
+                    </CustomText>
+                  </View>
+                ),
+              )}
         </View>
 
+        {/* Overview */}
         <CustomText style={MovieDetailScreenStyles.sectionTitle}>
           {TextList.overview}
         </CustomText>
-        <CustomText style={MovieDetailScreenStyles.overviewCustomText}>
-          {moviesDetails?.overview}
-        </CustomText>
+        {loading ? (
+          <CustomShimmer style={MovieDetailScreenStyles.OverViewShimmer} />
+        ) : (
+          <CustomText style={MovieDetailScreenStyles.overviewCustomText}>
+            {moviesDetails?.overview}
+          </CustomText>
+        )}
       </View>
     </ScrollView>
   );

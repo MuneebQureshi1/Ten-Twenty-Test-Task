@@ -80,6 +80,11 @@ export const MovieDetailScreenStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    genreshimmer: {
+      borderRadius: horizontalResponsive(16),
+     width: horizontalResponsive(60),
+     height:verticalResponsive(24)
+    },
     genreCustomText: {
       color: Theme.bottomBarActiveText,
       fontFamily: Fonts.Poppins600,
@@ -92,4 +97,7 @@ export const MovieDetailScreenStyles = StyleSheet.create({
       color: Theme.overviewText,
       lineHeight: 19.2,
     },
+    OverViewShimmer:{
+      width: '100%', height: '50%'
+    }
   });

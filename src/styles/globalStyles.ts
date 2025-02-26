@@ -131,4 +131,7 @@ export const globalStyle = StyleSheet.create({
   disabled: {
     backgroundColor: Theme.disabledButton,
   },
+  w100:{
+    width:'100%'
+  }
 });
