@@ -93,6 +93,9 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
                   title={TextList.watch_trailer}
                   textStyle={MovieDetailScreenStyles.trailerText}
                   style={MovieDetailScreenStyles.trailerButton}
+                  onPress={() => {
+                    navigation.navigate('VideoPlayer');
+                  }}
                   leftIcon={
                     <Entypo
                       name="controller-play"

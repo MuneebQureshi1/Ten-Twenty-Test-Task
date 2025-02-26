@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
 import WatchScreen from '../../../screens/WatchStackScreen/WatchMainScreen/WatchScreen';
 import MovieDetailScreen from '../../../screens/WatchStackScreen/MovieDetailScreen/MovieDetailScreen';
+import VideoPlayer from '../../../screens/WatchStackScreen/VideoPlayer/VideoPlayer';
 
 const WatchStackNavigator = createNativeStackNavigator<WatchStackParamsList>();
 
@@ -16,6 +17,7 @@ export default function WatchStack() {
         name="DetailScreen"
         component={MovieDetailScreen}
       />
+      <WatchStackNavigator.Screen name="VideoPlayer" component={VideoPlayer} />
     </WatchStackNavigator.Navigator>
   );
 }
