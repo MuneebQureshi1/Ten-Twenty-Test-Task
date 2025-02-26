@@ -14,16 +14,27 @@ import {WatchMainScreenStyles} from '../WatchMainScreen/WatchScreenStyles';
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import {CustomText} from '../../../components/CustomText/CustomText';
 import {MovieDetailScreenStyles} from './MovieDetailScreenStyle';
-import {getRandomColor} from '../../../utils/Helper';
+import {getImageUrl, getRandomColor} from '../../../utils/Helper';
+import useGetApi from '../../../services/ApiHooks/getApis';
+import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
+import {RouteProp} from '@react-navigation/native';
 
 interface MovieDetailScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'DetailScreen'>;
+  route: RouteProp<WatchStackParamsList, 'DetailScreen'>; // Add route prop
 }
 
-const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
+const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
+  navigation,
+  route,
+}) => {
+  const {movieId} = route.params || '';
   useHideTabBar({navigation});
-
-  const genres = ['Action', 'Thriller', 'Science', 'Fiction'];
+  const {getMoviesDetailApi} = useGetApi();
+  const {data: moviesDetails, loading} = useCallApiOnLoad(
+    getMoviesDetailApi,
+    movieId,
+  );
 
   return (
     <ScrollView
@@ -32,7 +43,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
       style={MovieDetailScreenStyles.scrollView}>
       <ImageBackground
         source={{
-          uri: `https://image.tmdb.org/t/p/w500/vtdEHG1j07PqLlVyhKNZRHTPKGt.jpg`,
+          uri: getImageUrl(moviesDetails?.poster_path),
         }}
         style={MovieDetailScreenStyles.imageBackground}>
         <LinearGradient
@@ -55,7 +66,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
             </View>
             <View style={MovieDetailScreenStyles.bottomContainer}>
               <CustomText style={MovieDetailScreenStyles.releaseDate}>
-                In theaters December 22, 2021
+                In theaters {moviesDetails?.release_date}
               </CustomText>
               <CustomButton title={TextList.get_tickets} />
               <CustomButton
@@ -80,15 +91,15 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
           {TextList.genres}
         </CustomText>
         <View style={MovieDetailScreenStyles.genreContainer}>
-          {genres.map((genre, index) => (
+          {moviesDetails?.genres?.map((genre: {id: number; name: string}) => (
             <View
-              key={index}
+              key={genre?.id}
               style={[
                 MovieDetailScreenStyles.genreBadge,
                 {backgroundColor: getRandomColor()},
               ]}>
               <CustomText style={MovieDetailScreenStyles.genreCustomText}>
-                {genre}
+                {genre?.name}
               </CustomText>
             </View>
           ))}
@@ -98,11 +109,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
           {TextList.overview}
         </CustomText>
         <CustomText style={MovieDetailScreenStyles.overviewCustomText}>
-          As a collection of history's worst tyrants and criminal masterminds
-          gather to plot a war to wipe out millions, one man must race against
-          time to stop them. Discover the origins of the very first independent
-          intelligence agency in The King's Man. The comic book "The Secret
-          Service" by Mark Millar and Dave Gibbons.
+          {moviesDetails?.overview}
         </CustomText>
       </View>
     </ScrollView>

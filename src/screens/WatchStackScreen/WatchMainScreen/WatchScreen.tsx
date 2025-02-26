@@ -54,7 +54,7 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
               imageUrl={getImageUrl(item?.backdrop_path)}
               title={item?.title}
               onPress={() => {
-                navigation.navigate('DetailScreen');
+                navigation.navigate('DetailScreen', {movieId: item?.id});
               }}
             />
           )}

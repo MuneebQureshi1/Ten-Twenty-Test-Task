@@ -10,9 +10,16 @@ const useGetApi = () => {
       return response;
     } catch (err) {}
   };
+  const getMoviesDetailApi = async (id: string) => {
+    try {
+      const response = await dataServer.get(moviesCurd.get_movie_detail(id));
+      return response;
+    } catch (err) {}
+  };
 
   return {
     getAllUpcomingMoviesApi,
+    getMoviesDetailApi,
   };
 };
 

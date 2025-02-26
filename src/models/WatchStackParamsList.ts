@@ -1,4 +1,4 @@
 export type WatchStackParamsList = {
   WatchScreen: undefined;
-  DetailScreen:undefined;
+  DetailScreen:{movieId:string};
 };
