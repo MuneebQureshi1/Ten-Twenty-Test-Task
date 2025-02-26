@@ -1,10 +1,10 @@
 const Endpoints=()=>{
-    const postCurd={
-        get_all_post:()=>`/posts`,
+    const moviesCurd={
+        get_upcoming_movies:()=>`/3/movie/upcoming`,
         update_post:(id:number)=>`/posts/${id}`
     }
     return { 
-		postCurd
+		moviesCurd
 	};
 }
 

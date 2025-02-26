@@ -1,18 +1,18 @@
-import Endpoints from "../../constants/endpoints";
-import { dataServer } from "../axiosConfig";
+import Endpoints from '../../constants/endpoints';
+import {dataServer} from '../axiosConfig';
 
 const useGetApi = () => {
-  const { postCurd } = Endpoints();
+  const {moviesCurd} = Endpoints();
 
-  const getAllPostApi = async () => {
+  const getAllUpcomingMoviesApi = async () => {
     try {
-      const response = await dataServer.get(postCurd.get_all_post());
+      const response = await dataServer.get(moviesCurd.get_upcoming_movies());
       return response;
     } catch (err) {}
   };
 
   return {
-    getAllPostApi,
+    getAllUpcomingMoviesApi,
   };
 };
 

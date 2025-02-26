@@ -1,10 +1,10 @@
-import axios from "axios";
-import NetInfo from "@react-native-community/netinfo";
-import { EnvironmentVariable } from "../constants/env";
+import axios from 'axios';
+import NetInfo from '@react-native-community/netinfo';
+import {EnvironmentVariable} from '../constants/env';
 
 const UseAccessToken = async () => {
   //   const AccessTokken = await AsyncStorage.getItem('AccessTokken');
-  const AccessTokken = "";
+  const AccessTokken = '';
   if (AccessTokken) {
     return AccessTokken;
   } else {
@@ -42,22 +42,26 @@ const dataServer = axios.create({
   maxBodyLength: Infinity,
   maxContentLength: Infinity,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
+  },
+  params: {
+    api_key: EnvironmentVariable.TMDB_API_KEY,
+    language: 'en-US',
   },
 });
 
 dataServer.interceptors.request.use((config: any) => {
   return new Promise((resolve, reject) => {
     //@ts-ignore
-    NetInfo.addEventListener(async (state) => {
+    NetInfo.addEventListener(async state => {
       const accessToken = await UseAccessToken();
       if (!state.isConnected) {
-        return reject({ message: "No internet connection" });
+        return reject({message: 'No internet connection'});
       }
       if (config.data && config.data instanceof FormData) {
-        config.headers["Content-Type"] = "multipart/form-data";
+        config.headers['Content-Type'] = 'multipart/form-data';
       } else {
-        config.headers["Content-Type"] = "application/json";
+        config.headers['Content-Type'] = 'application/json';
       }
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -75,9 +79,9 @@ dataServer.interceptors.response.use(
       //When we use accessToken or our session expires we can do two methods on with refresh tokken and other is to navigate on login screen
       //   navigate();
     }
-    console.log("Error", error.response);
+    console.log('Error', error.response);
     return Promise.reject(error);
-  }
+  },
 );
 
-export { dataServer };
+export {dataServer};
