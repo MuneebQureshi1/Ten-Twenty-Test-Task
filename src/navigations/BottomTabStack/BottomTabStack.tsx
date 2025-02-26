@@ -6,7 +6,7 @@ import {svg} from '../../constants/svg';
 import {Theme} from '../../constants/Theme';
 import {TextList} from '../../constants/TextList';
 import {useNavigationState} from '@react-navigation/native';
-import {BackHandler} from 'react-native';
+import {BackHandler, View} from 'react-native';
 import {globalStyle} from '../../styles/globalStyles';
 import WatchStack from './WatchStack/WatchStack';
 
@@ -41,7 +41,25 @@ export default function BottomTabStack() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: [globalStyle.bottomBarStlye],
+        tabBarLabelStyle: [globalStyle.fs10],
       }}>
+      <BottomTabStackNavigator.Screen
+        name="Dashboadtack"
+        component={WatchStack}
+        options={{
+          tabBarLabel: TextList.dashboard,
+          tabBarActiveTintColor: Theme.bottomBarActiveText,
+          tabBarInactiveTintColor: Theme.bottomBarInactiveText,
+          tabBarIcon: ({focused}) => (
+            <CustomTabBarIcon
+              focused={focused}
+              selectedIcon={svg.activeDashboardIcon}
+              unselectedIcon={svg.inActiveDashboardIcon}
+            />
+          ),
+          tabBarButton: props => <View {...props} />,
+        }}
+      />
       <BottomTabStackNavigator.Screen
         name="WatchStack"
         component={WatchStack}
@@ -58,70 +76,41 @@ export default function BottomTabStack() {
           ),
         }}
       />
-      {/* <BottomTabStackNavigator.Screen
-        name="DashboardStack"
+      <BottomTabStackNavigator.Screen
+        name="libraryStack"
         component={WatchStack}
         options={{
-          tabBarLabel: TextList.feed,
+          tabBarLabel: TextList.media_library,
           tabBarActiveTintColor: Theme.bottomBarActiveText,
           tabBarInactiveTintColor: Theme.bottomBarInactiveText,
           tabBarIcon: ({focused}) => (
             <CustomTabBarIcon
               focused={focused}
-              selectedIcon={svg.activeWatchIcon}
-              unselectedIcon={svg.InActiveWatchIcon}
+              selectedIcon={svg.activeMediaIcon}
+              unselectedIcon={svg.inActiveMediaIcon}
             />
           ),
-        }}
-      /> */}
-      {/* <BottomTabStackNavigator.Screen
-        name="PostStack"
-        component={PostStack}
-        options={{
-          tabBarLabel: TextList.posts,
-          tabBarActiveTintColor: Theme.bottomBarActiveText,
-          tabBarInactiveTintColor: Theme.bottomBarInactiveText,
-          tabBarIcon: ({ focused }) => (
-            <CustomTabBarIcon
-              focused={focused}
-              selectedIcon={svg.activePostIcon}
-              unselectedIcon={svg.InActivePostIcon}
-            />
-          ),
+          tabBarButton: props => <View {...props} />,
         }}
       />
       <BottomTabStackNavigator.Screen
-        name="CalenderStack"
-        component={CalenderStack}
+        name="MoreStack"
+        component={WatchStack}
         options={{
-          tabBarLabel: TextList.Calender,
+          tabBarLabel: TextList.more,
           tabBarActiveTintColor: Theme.bottomBarActiveText,
           tabBarInactiveTintColor: Theme.bottomBarInactiveText,
-          tabBarIcon: ({ focused }) => (
+
+          tabBarIcon: ({focused}) => (
             <CustomTabBarIcon
               focused={focused}
-              selectedIcon={svg.activeCalenderIcon}
-              unselectedIcon={svg.InActiveCalenderIcon}
+              selectedIcon={svg.activeMoreIcon}
+              unselectedIcon={svg.inActiveMoreIcon}
             />
           ),
+          tabBarButton: props => <View {...props} />,
         }}
       />
-      <BottomTabStackNavigator.Screen
-        name="SettingStack"
-        component={SettingStack}
-        options={{
-          tabBarLabel: TextList.Settings,
-          tabBarActiveTintColor: Theme.bottomBarActiveText,
-          tabBarInactiveTintColor: Theme.bottomBarInactiveText,
-          tabBarIcon: ({ focused }) => (
-            <CustomTabBarIcon
-              focused={focused}
-              selectedIcon={svg.activeSettingsIcon}
-              unselectedIcon={svg.InActiveSettingsIcon}
-            />
-          ),
-        }}
-      /> */}
     </BottomTabStackNavigator.Navigator>
   );
 }

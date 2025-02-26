@@ -12,9 +12,12 @@ export const globalStyle = StyleSheet.create({
   },
   bottomBarStlye: {
     elevation: 0,
-    height: verticalResponsive(60),
+    height: verticalResponsive(75),
     backgroundColor: Theme.bottomBarBackgroundColor,
     borderTopWidth: 0,
+    borderTopLeftRadius:horizontalResponsive(27),
+    borderTopRightRadius:horizontalResponsive(27),
+    paddingTop:verticalResponsive(10)
   },
   Flex1: {
     flex: 1,
@@ -112,4 +115,5 @@ export const globalStyle = StyleSheet.create({
   mL30: {
     marginLeft: verticalResponsive(30),
   },
+  fs10:{fontSize:horizontalResponsive(10)}
 });
