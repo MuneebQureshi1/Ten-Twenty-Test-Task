@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {Theme} from '../../../constants/Theme';
 import {horizontalResponsive} from '../../../utils/responsiveControlFunctions';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,17 +9,22 @@ import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {VideoPlayerStyles} from './VideoPlayeStyles';
 import Loader from '../../../components/Loader/Loader';
-
-const VideoPlayer = () => {
-  const navigation = useNavigation();
+import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CustomText} from '../../../components/CustomText/CustomText';
+interface MovieDetailScreenProps {
+  navigation: NativeStackNavigationProp<WatchStackParamsList, 'VideoPlayer'>;
+  route: RouteProp<WatchStackParamsList, 'VideoPlayer'>;
+}
+const VideoPlayer: React.FC<MovieDetailScreenProps> = ({navigation, route}) => {
+  const {movieId} = route.params || '';
   const {getMoviesTrailerApi} = useGetApi();
   const {data: moviesDetails, loading} = useCallApiOnLoad(
     getMoviesTrailerApi,
-    '1126166',
+    movieId,
   );
 
   const [videoKey, setVideoKey] = useState<string | null>(null);
-  const [isBuffering, setIsBuffering] = useState(true);
 
   useEffect(() => {
     if (moviesDetails?.results?.length > 0) {
@@ -38,11 +43,7 @@ const VideoPlayer = () => {
       <TouchableOpacity
         style={VideoPlayerStyles.closeButton}
         onPress={() => navigation.goBack()}>
-        <Entypo
-          name="cross"
-          color={Theme.white}
-          size={horizontalResponsive(20)}
-        />
+        <CustomText style={VideoPlayerStyles.doneText}>Done</CustomText>
       </TouchableOpacity>
 
       {/* Loader */}

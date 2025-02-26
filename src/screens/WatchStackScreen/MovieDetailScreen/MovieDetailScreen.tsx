@@ -94,7 +94,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
                   textStyle={MovieDetailScreenStyles.trailerText}
                   style={MovieDetailScreenStyles.trailerButton}
                   onPress={() => {
-                    navigation.navigate('VideoPlayer');
+                    navigation.navigate('VideoPlayer', {movieId: movieId});
                   }}
                   leftIcon={
                     <Entypo
