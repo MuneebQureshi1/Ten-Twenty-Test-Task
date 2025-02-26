@@ -16,7 +16,7 @@ const ImageCard: React.FC<ImageCardProps> = ({imageUrl, title}) => {
         source={{uri: imageUrl}}
         style={WatchMainScreenStyles.imageBackground}>
         <LinearGradient
-          colors={[Theme.transparent, Theme.blackWithOpacity9]}
+          colors={[Theme.transparent, Theme.blackWithOpacity1]}
           style={WatchMainScreenStyles.gradient}
         />
         <Text style={WatchMainScreenStyles.title}>{title}</Text>

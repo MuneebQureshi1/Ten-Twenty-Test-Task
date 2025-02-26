@@ -12,6 +12,7 @@ export const Theme={
     red:'red',
     transparent:'rgba(0,0,0,0.0)',
     blackWithOpacity9:'rgba(0,0,0,0.8)',
+    blackWithOpacity1:'rgba(0,0,0,1)',
     screenBackground:'rgba(246, 246, 250, 1)'
 
 }

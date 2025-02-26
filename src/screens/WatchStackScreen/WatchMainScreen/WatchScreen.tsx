@@ -50,9 +50,7 @@ const WatchScreen = () => {
           contentContainerStyle={WatchMainScreenStyles.flatListContent}
           renderItem={({item}) => (
             <ImageCard
-              imageUrl={
-                'https://s3-alpha-sig.figma.com/img/67e5/8d98/a6c9dc28d80d81e32db6ab2b816cb5c3?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=IDsJGS8JjleHN3A8TF4pWc19bKn5v0OuKynkdDdMCUiW-rT7jhoEDXdiS0aPucpBDAWDStsUpDa6v6O0QkK8vHfXSzR-CXC-mdjsmh-0bDzZHaG0yO-7YGRsRkx9B6izsCJOCVHfh9Qwgsly7r1bQOurrzqSVQZWlbExJ2V-Imt5RRYJTk1aOZ2K77DbByM2rlw8kNiuTbP~oo2V8-wt5fGF~EG31l7cwpW5Gqzex5OC50kIvpFxY6tNh4FxXsovibVBy3xH4cqYTC3Brtv7OYUtKVdv--GaNlWMuZ-CyG01MWcXG4ahXgoxHVI656EJDj7vga7U9UE48BFFqR4HPA__'
-              }
+              imageUrl={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}
               title={item?.title}
             />
           )}
