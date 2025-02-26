@@ -16,10 +16,17 @@ const useGetApi = () => {
       return response;
     } catch (err) {}
   };
+  const getMoviesTrailerApi = async (id: string) => {
+    try {
+      const response = await dataServer.get(moviesCurd.get_video_url(id));
+      return response;
+    } catch (err) {}
+  };
 
   return {
     getAllUpcomingMoviesApi,
     getMoviesDetailApi,
+    getMoviesTrailerApi,
   };
 };
 

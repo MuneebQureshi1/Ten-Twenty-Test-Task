@@ -1,29 +1,36 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
-import Video from 'react-native-video';
-import Orientation from 'react-native-orientation-locker';
+import React, {useEffect, useState} from 'react';
+import {View, TouchableOpacity} from 'react-native';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import {useNavigation} from '@react-navigation/native';
 import {Theme} from '../../../constants/Theme';
 import {horizontalResponsive} from '../../../utils/responsiveControlFunctions';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Loader from '../../../components/Loader/Loader';
+import useGetApi from '../../../services/ApiHooks/getApis';
+import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {VideoPlayerStyles} from './VideoPlayeStyles';
+import Loader from '../../../components/Loader/Loader';
 
 const VideoPlayer = () => {
-  //@ts-ignore
-  const videoRef = useRef<Video>(null);
   const navigation = useNavigation();
-  const [isBuffering, setIsBuffering] = useState(true); // Buffering state
+  const {getMoviesTrailerApi} = useGetApi();
+  const {data: moviesDetails, loading} = useCallApiOnLoad(
+    getMoviesTrailerApi,
+    '1126166',
+  );
+
+  const [videoKey, setVideoKey] = useState<string | null>(null);
+  const [isBuffering, setIsBuffering] = useState(true);
 
   useEffect(() => {
-    // Lock screen to landscape when component mounts
-    Orientation.lockToLandscape();
-
-    return () => {
-      // Lock back to portrait when leaving screen
-      Orientation.lockToPortrait();
-    };
-  }, []);
+    if (moviesDetails?.results?.length > 0) {
+      const trailer = moviesDetails.results.find(
+        (video: any) => video.type === 'Trailer' && video.site === 'YouTube',
+      );
+      if (trailer) {
+        setVideoKey(trailer.key);
+      }
+    }
+  }, [moviesDetails]);
 
   return (
     <View style={VideoPlayerStyles.container}>
@@ -38,25 +45,40 @@ const VideoPlayer = () => {
         />
       </TouchableOpacity>
 
-      {/* Video Player */}
-      <Video
-        ref={videoRef}
-        source={{uri: 'https://www.w3schools.com/html/mov_bbb.mp4'}} // Replace with your video URL
-        style={VideoPlayerStyles.video}
-        controls
-        resizeMode="contain"
-        paused={false} // Auto Play Video
-        onEnd={() => navigation.goBack()} // Navigate back when video ends
-        onBuffer={({isBuffering}) => setIsBuffering(isBuffering)} // Handle Buffering
-        onReadyForDisplay={() => setIsBuffering(false)} // Hide loader when ready
-      />
-
-      {/* Loader for Buffering */}
-      {isBuffering && (
-        <View style={VideoPlayerStyles.loaderContainer}>
-          <Loader />
-        </View>
-      )}
+      {/* Loader */}
+      {loading ? (
+        <Loader
+          size="large"
+          color="white"
+          style={VideoPlayerStyles.loaderContainer}
+        />
+      ) : videoKey ? (
+        <YoutubePlayer
+          width={'100%'}
+          height={'30%'}
+          play={true}
+          videoId={videoKey}
+          initialPlayerParams={{
+            start: 0,
+            modestbranding: 1,
+            rel: 0,
+            showClosedCaptions: 0,
+            iv_load_policy: 3,
+            fs: 1, // Ensure fullscreen support
+          }}
+          onChangeState={(state: string) => {
+            if (state === 'ended') {
+              navigation.goBack(); // Go back when video ends
+            }
+          }}
+          webViewProps={{
+            allowsFullscreenVideo: true,
+            scrollEnabled: false,
+            overScrollMode: 'never',
+            nestedScrollEnabled: false,
+          }}
+        />
+      ) : null}
     </View>
   );
 };
