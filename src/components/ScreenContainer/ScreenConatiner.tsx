@@ -4,10 +4,6 @@ import {Theme} from '../../constants/Theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Loader from '../Loader/Loader';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {SvgXml} from 'react-native-svg';
-// import {svg} from '../../constants/svg';
-// import {CustomText} from '../CustomText/CustomText';
-// import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {globalStyle} from '../../styles/globalStyles';
 
 interface ScreenContainerProps {
@@ -15,7 +11,7 @@ interface ScreenContainerProps {
   style?: ViewStyle | any;
   loading?: boolean;
   backgroundColor?: string;
-  HeaderLabel?: string;
+  headerComponent?: ReactNode;
 }
 
 export const ScreenContainer: React.FC<ScreenContainerProps> = ({
@@ -23,6 +19,7 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   style,
   loading,
   backgroundColor = Theme.mainBackgroundColor,
+  headerComponent,
 }) => {
   // const navigation = useNavigation<any>();
   // const routes = useNavigationState(state => state.routes);
@@ -30,13 +27,10 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   // const specificScreens = ['WatchScreen'];
   return (
     <SafeAreaView
-      style={[
-        globalStyle.Flex1,
-        !loading && style,
-        {
-          backgroundColor: backgroundColor,
-        },
-      ]}>
+      style={[globalStyle.Flex1, !loading && style, {backgroundColor}]}>
+      {/* Render the HeaderComponent if provided */}
+      {headerComponent && <View>{headerComponent}</View>}
+
       <KeyboardAwareScrollView
         style={globalStyle.Flex1}
         bounces={false}

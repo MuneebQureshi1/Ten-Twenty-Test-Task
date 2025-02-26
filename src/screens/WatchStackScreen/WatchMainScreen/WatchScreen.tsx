@@ -11,6 +11,7 @@ import ImageCard from './components/ImageCard';
 import {WatchMainScreenStyles} from './WatchScreenStyles';
 import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
+import {getImageUrl} from '../../../utils/Helper';
 
 const WatchScreen = () => {
   const {getAllUpcomingMoviesApi} = useGetApi();
@@ -26,22 +27,23 @@ const WatchScreen = () => {
   return (
     <ScreenContainer
       style={WatchMainScreenStyles.screenContainer}
-      loading={loading}>
-      {/* Header */}
-      <View style={WatchMainScreenStyles.headerContainer}>
-        <View style={globalStyle.verticalAlignment}>
-          <CustomText style={WatchMainScreenStyles.headerText}>
-            {TextList.watch}
-          </CustomText>
+      loading={loading}
+      headerComponent={
+        <View style={WatchMainScreenStyles.headerContainer}>
+          <View style={globalStyle.verticalAlignment}>
+            <CustomText style={WatchMainScreenStyles.headerText}>
+              {TextList.watch}
+            </CustomText>
+          </View>
+          <View style={globalStyle.verticalAlignment}>
+            <AntDesign
+              name={'search1'}
+              size={horizontalResponsive(14.25)}
+              color={Theme.black}
+            />
+          </View>
         </View>
-        <View style={globalStyle.verticalAlignment}>
-          <AntDesign
-            name={'search1'}
-            size={horizontalResponsive(14.25)}
-            color={Theme.black}
-          />
-        </View>
-      </View>
+      }>
       <View style={WatchMainScreenStyles.listContainer}>
         <FlatList
           data={upcomingMoviesData?.results}
@@ -50,7 +52,7 @@ const WatchScreen = () => {
           contentContainerStyle={WatchMainScreenStyles.flatListContent}
           renderItem={({item}) => (
             <ImageCard
-              imageUrl={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}
+              imageUrl={getImageUrl(item?.backdrop_path)}
               title={item?.title}
             />
           )}
