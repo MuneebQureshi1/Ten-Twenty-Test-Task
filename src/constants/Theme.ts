@@ -9,5 +9,9 @@ export const Theme={
     black:'black',
     tableCellDescription:'#beb5b2',
     white:'white',
-    red:'red'
+    red:'red',
+    transparent:'rgba(0,0,0,0.0)',
+    blackWithOpacity9:'rgba(0,0,0,0.8)',
+    screenBackground:'rgba(246, 246, 250, 1)'
+
 }

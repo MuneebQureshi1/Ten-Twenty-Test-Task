@@ -17,7 +17,9 @@ export const globalStyle = StyleSheet.create({
     borderTopWidth: 0,
     borderTopLeftRadius:horizontalResponsive(27),
     borderTopRightRadius:horizontalResponsive(27),
-    paddingTop:verticalResponsive(10)
+    paddingTop:verticalResponsive(10),
+    overflow: 'hidden', // Ensures no extra background is visible
+    position: 'absolute', // Helps in avoiding unwanted background overlay
   },
   Flex1: {
     flex: 1,
@@ -115,5 +117,11 @@ export const globalStyle = StyleSheet.create({
   mL30: {
     marginLeft: verticalResponsive(30),
   },
-  fs10:{fontSize:horizontalResponsive(10)}
+  fs10:{fontSize:horizontalResponsive(10)},
+  row:{
+    flexDirection:'row'
+  },
+  space_between:{
+    justifyContent:'space-between'
+  }
 });
