@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {RouteProp} from '@react-navigation/native';
-import {Theme} from '../../../constants/Theme';
-import {horizontalResponsive} from '../../../utils/responsiveControlFunctions';
-import Entypo from 'react-native-vector-icons/Entypo';
 import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {VideoPlayerStyles} from './VideoPlayeStyles';
@@ -12,12 +8,13 @@ import Loader from '../../../components/Loader/Loader';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CustomText} from '../../../components/CustomText/CustomText';
+import {useMovie} from '../../../context/MovieContext';
 interface MovieDetailScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'VideoPlayer'>;
-  route: RouteProp<WatchStackParamsList, 'VideoPlayer'>;
 }
-const VideoPlayer: React.FC<MovieDetailScreenProps> = ({navigation, route}) => {
-  const {movieId} = route.params || '';
+const VideoPlayer: React.FC<MovieDetailScreenProps> = ({navigation}) => {
+  const {movieId} = useMovie();
+
   const {getMoviesTrailerApi} = useGetApi();
   const {data: moviesDetails, loading} = useCallApiOnLoad(
     getMoviesTrailerApi,

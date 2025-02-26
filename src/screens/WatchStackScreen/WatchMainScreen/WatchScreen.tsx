@@ -14,11 +14,13 @@ import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {getImageUrl} from '../../../utils/Helper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
+import {useMovie} from '../../../context/MovieContext';
 interface WatchScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'WatchScreen'>;
 }
 
 const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
+  const {updateMovieId} = useMovie();
   const {getAllUpcomingMoviesApi} = useGetApi();
   const {data: upcomingMoviesData, loading} = useCallApiOnLoad(
     getAllUpcomingMoviesApi,
@@ -54,7 +56,8 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
               imageUrl={getImageUrl(item?.backdrop_path)}
               title={item?.title}
               onPress={() => {
-                navigation.navigate('DetailScreen', {movieId: item?.id});
+                updateMovieId(item?.id);
+                navigation.navigate('DetailScreen');
               }}
             />
           )}

@@ -22,19 +22,18 @@ import {MovieDetailScreenStyles} from './MovieDetailScreenStyle';
 import {getImageUrl, getRandomColor} from '../../../utils/Helper';
 import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
-import {RouteProp} from '@react-navigation/native';
 import CustomShimmer from '../../../components/CustomShimmer/CustomShimmer';
+import {useMovie} from '../../../context/MovieContext';
+import moment from 'moment';
 
 interface MovieDetailScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'DetailScreen'>;
-  route: RouteProp<WatchStackParamsList, 'DetailScreen'>;
 }
 
-const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
-  navigation,
-  route,
-}) => {
-  const {movieId} = route.params || '';
+const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
+  // const {movieId} = route.params || '';
+  const {movieId} = useMovie();
+
   useHideTabBar({navigation});
   const {getMoviesDetailApi} = useGetApi();
   const {data: moviesDetails, loading} = useCallApiOnLoad(
@@ -85,7 +84,10 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
                   <CustomShimmer style={MovieDetailScreenStyles.releaseDate} />
                 ) : (
                   <CustomText style={MovieDetailScreenStyles.releaseDate}>
-                    In theaters {moviesDetails?.release_date}
+                    In theaters{' '}
+                    {moment(moviesDetails?.release_date).format(
+                      'MMMM DD, YYYY',
+                    )}
                   </CustomText>
                 )}
                 <CustomButton title={TextList.get_tickets} />
@@ -94,7 +96,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
                   textStyle={MovieDetailScreenStyles.trailerText}
                   style={MovieDetailScreenStyles.trailerButton}
                   onPress={() => {
-                    navigation.navigate('VideoPlayer', {movieId: movieId});
+                    navigation.navigate('VideoPlayer');
                   }}
                   leftIcon={
                     <Entypo
