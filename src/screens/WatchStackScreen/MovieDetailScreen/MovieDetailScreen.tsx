@@ -25,6 +25,7 @@ import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import CustomShimmer from '../../../components/CustomShimmer/CustomShimmer';
 import {useMovie} from '../../../context/MovieContext';
 import moment from 'moment';
+import {SafeAreaView} from 'react-native';
 
 interface MovieDetailScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'DetailScreen'>;
@@ -59,6 +60,7 @@ const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({navigation}) => {
           <LinearGradient
             colors={[Theme.transparent, Theme.blackWithOpacity9]}
             style={WatchMainScreenStyles.gradient}>
+            <SafeAreaView />
             <View style={MovieDetailScreenStyles.gradientContainer}>
               <View style={MovieDetailScreenStyles.headerContainer}>
                 <TouchableOpacity

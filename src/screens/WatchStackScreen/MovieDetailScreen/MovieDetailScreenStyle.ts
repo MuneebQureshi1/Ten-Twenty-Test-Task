@@ -20,7 +20,6 @@ export const MovieDetailScreenStyles = StyleSheet.create({
       headerContainer: {
         ...globalStyle.row,
         gap: horizontalResponsive(20),
-        marginTop: verticalResponsive(20),
         marginLeft: horizontalResponsive(20),
       },
       watchText: {

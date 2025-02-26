@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Theme} from '../../../constants/Theme';
 import {
   horizontalResponsive,
@@ -24,7 +24,7 @@ export const VideoPlayerStyles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: verticalResponsive(20),
+    top:Platform.OS==='ios' ?verticalResponsive(70):verticalResponsive(20),
     left: horizontalResponsive(20),
     zIndex: 1,
     backgroundColor: Theme.bottomBarBackgroundColor, // Custom Theme Color
