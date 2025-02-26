@@ -5,6 +5,7 @@ import {
 } from "../utils/responsiveControlFunctions";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Theme } from "../constants/Theme";
+import Fonts from "../constants/FontsFamily";
 
 export const globalStyle = StyleSheet.create({
   elevation0: {
@@ -62,16 +63,6 @@ export const globalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
-    backgroundColor: Theme.bottomBarActiveText,
-    borderRadius: horizontalResponsive(360),
-    height: verticalResponsive(56),
-    width: horizontalResponsive(361),
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    gap: horizontalResponsive(5),
-  },
   buttonText: {
     color: Theme.white,
     fontSize: horizontalResponsive(17),
@@ -123,5 +114,21 @@ export const globalStyle = StyleSheet.create({
   },
   space_between:{
     justifyContent:'space-between'
-  }
+  },
+  button: {
+    backgroundColor: Theme.buttonBackground,
+    height: verticalResponsive(50),
+    width: horizontalResponsive(243),
+    borderRadius: horizontalResponsive(10),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: Theme.bottomBarActiveText,
+    fontSize: horizontalResponsive(14),
+    fontFamily: Fonts.Poppins500,
+  },
+  disabled: {
+    backgroundColor: Theme.disabledButton,
+  },
 });

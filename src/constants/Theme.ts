@@ -12,7 +12,12 @@ export const Theme={
     red:'red',
     transparent:'rgba(0,0,0,0.0)',
     blackWithOpacity9:'rgba(0,0,0,0.8)',
+    blackWithOpacity5:'rgba(0,0,0,0.5)',
     blackWithOpacity1:'rgba(0,0,0,1)',
-    screenBackground:'rgba(246, 246, 250, 1)'
+    screenBackground:'rgba(246, 246, 250, 1)',
+    buttonBackground:'rgba(97, 195, 242, 1)',
+    disabledButton:"#b0b0b0",
+    overviewText:'rgba(143, 143, 143, 1)',
+
 
 }
