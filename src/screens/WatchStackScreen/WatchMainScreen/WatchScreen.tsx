@@ -15,6 +15,7 @@ import {getImageUrl} from '../../../utils/Helper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
 import {useMovie} from '../../../context/MovieContext';
+import CustomShimmer from '../../../components/CustomShimmer/CustomShimmer';
 interface WatchScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'WatchScreen'>;
 }
@@ -28,7 +29,6 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
   return (
     <ScreenContainer
       style={WatchMainScreenStyles.screenContainer}
-      loading={loading}
       headerComponent={
         <View style={WatchMainScreenStyles.headerContainer}>
           <View style={globalStyle.verticalAlignment}>
@@ -46,22 +46,31 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
         </View>
       }>
       <View style={WatchMainScreenStyles.listContainer}>
-        <FlatList
-          data={upcomingMoviesData?.results}
-          keyExtractor={item => item.id}
-          scrollEnabled={false}
-          contentContainerStyle={WatchMainScreenStyles.flatListContent}
-          renderItem={({item}) => (
-            <ImageCard
-              imageUrl={getImageUrl(item?.backdrop_path)}
-              title={item?.title}
-              onPress={() => {
-                updateMovieId(item?.id);
-                navigation.navigate('DetailScreen');
-              }}
+        {loading ? (
+          Array.from({length: 3}).map((_, index) => (
+            <CustomShimmer
+              key={index}
+              style={[WatchMainScreenStyles.container, globalStyle.selfCenter]}
             />
-          )}
-        />
+          ))
+        ) : (
+          <FlatList
+            data={upcomingMoviesData?.results}
+            keyExtractor={item => item.id}
+            scrollEnabled={false}
+            contentContainerStyle={WatchMainScreenStyles.flatListContent}
+            renderItem={({item}) => (
+              <ImageCard
+                imageUrl={getImageUrl(item?.backdrop_path)}
+                title={item?.title}
+                onPress={() => {
+                  updateMovieId(item?.id);
+                  navigation.navigate('DetailScreen');
+                }}
+              />
+            )}
+          />
+        )}
       </View>
     </ScreenContainer>
   );

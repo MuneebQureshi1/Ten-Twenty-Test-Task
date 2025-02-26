@@ -133,5 +133,8 @@ export const globalStyle = StyleSheet.create({
   },
   w100:{
     width:'100%'
+  },
+  selfCenter:{
+    alignSelf:'center'
   }
 });
