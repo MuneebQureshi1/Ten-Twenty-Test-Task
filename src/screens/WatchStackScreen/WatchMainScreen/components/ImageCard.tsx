@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ImageBackground, Text} from 'react-native';
+import {View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Theme} from '../../../../constants/Theme';
 import {WatchMainScreenStyles} from '../WatchScreenStyles';
@@ -7,11 +7,12 @@ import {WatchMainScreenStyles} from '../WatchScreenStyles';
 interface ImageCardProps {
   imageUrl: string;
   title: string;
+  onPress: () => void;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({imageUrl, title}) => {
+const ImageCard: React.FC<ImageCardProps> = ({imageUrl, title, onPress}) => {
   return (
-    <View style={WatchMainScreenStyles.container}>
+    <TouchableOpacity onPress={onPress} style={WatchMainScreenStyles.container}>
       <ImageBackground
         source={{uri: imageUrl}}
         style={WatchMainScreenStyles.imageBackground}>
@@ -21,7 +22,7 @@ const ImageCard: React.FC<ImageCardProps> = ({imageUrl, title}) => {
         />
         <Text style={WatchMainScreenStyles.title}>{title}</Text>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
 

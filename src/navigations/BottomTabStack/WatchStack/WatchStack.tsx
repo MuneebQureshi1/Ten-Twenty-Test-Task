@@ -2,6 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
 import WatchScreen from '../../../screens/WatchStackScreen/WatchMainScreen/WatchScreen';
+import MovieDetailScreen from '../../../screens/WatchStackScreen/MovieDetailScreen/MovieDetailScreen';
 
 const WatchStackNavigator = createNativeStackNavigator<WatchStackParamsList>();
 
@@ -11,6 +12,10 @@ export default function WatchStack() {
       initialRouteName="WatchScreen"
       screenOptions={{headerShown: false}}>
       <WatchStackNavigator.Screen name="WatchScreen" component={WatchScreen} />
+      <WatchStackNavigator.Screen
+        name="DetailScreen"
+        component={MovieDetailScreen}
+      />
     </WatchStackNavigator.Navigator>
   );
 }

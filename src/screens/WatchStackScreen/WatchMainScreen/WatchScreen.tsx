@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {ScreenContainer} from '../../../components/ScreenContainer/ScreenConatiner';
 import {CustomText} from '../../../components/CustomText/CustomText';
 import {TextList} from '../../../constants/TextList';
@@ -12,18 +12,17 @@ import {WatchMainScreenStyles} from './WatchScreenStyles';
 import useGetApi from '../../../services/ApiHooks/getApis';
 import useCallApiOnLoad from '../../../hooks/useCallApiOnload';
 import {getImageUrl} from '../../../utils/Helper';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
+interface WatchScreenProps {
+  navigation: NativeStackNavigationProp<WatchStackParamsList, 'WatchScreen'>;
+}
 
-const WatchScreen = () => {
+const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
   const {getAllUpcomingMoviesApi} = useGetApi();
   const {data: upcomingMoviesData, loading} = useCallApiOnLoad(
     getAllUpcomingMoviesApi,
   );
-  useEffect(() => {
-    if (upcomingMoviesData) {
-      console.log('data', upcomingMoviesData);
-    }
-  }, [upcomingMoviesData]);
-
   return (
     <ScreenContainer
       style={WatchMainScreenStyles.screenContainer}
@@ -54,6 +53,9 @@ const WatchScreen = () => {
             <ImageCard
               imageUrl={getImageUrl(item?.backdrop_path)}
               title={item?.title}
+              onPress={() => {
+                navigation.navigate('DetailScreen');
+              }}
             />
           )}
         />
