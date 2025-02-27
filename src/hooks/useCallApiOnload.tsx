@@ -24,11 +24,12 @@ const useCallApiOnLoad = (
       if (results && onSuccess) {
         onSuccess(results);
       }
+      if (results) {
+        setLoading(false);
+      }
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       Alert.alert('Error', err.message);
-    } finally {
-      setLoading(false);
     }
   };
 

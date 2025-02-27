@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NetInfo from '@react-native-community/netinfo';
 import {EnvironmentVariable} from '../constants/env';
+import {showMessage} from '../utils/Helper';
 
 const UseAccessToken = async () => {
   const AccessTokken = '';
@@ -50,6 +51,12 @@ dataServer.interceptors.response.use(
     return response.data;
   },
   (error: any) => {
+    console.log('error', error);
+    if (error?.message === 'No internet connection') {
+      showMessage(
+        'It looks like you are offline. Please check your network and try again.',
+      );
+    }
     if (error?.response?.status === 401) {
       //When we use accessToken or our session expires we can do two methods on with refresh tokken and other is to navigate on login screen
       //   navigate();
