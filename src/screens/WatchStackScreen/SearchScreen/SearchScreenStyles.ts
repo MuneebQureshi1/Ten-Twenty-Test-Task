@@ -48,8 +48,7 @@ export const SearchScreenStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     paddingHorizontal: horizontalResponsive(10),
-    justifyContent: 'center',
-    alignItems: 'center',
+
   },
   MovieListcontainer: {
     flex: 1,
@@ -88,5 +87,23 @@ export const SearchScreenStyles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: horizontalResponsive(15),
     fontFamily: Fonts.Poppins600,
+    height:heightPercentageToDP(100)
+  },
+  h100:{
+    height:heightPercentageToDP(100)
+  },
+  movieFlatListConatiner:{
+    height: '100%',
+    flex: 1,
+    paddingBottom: verticalResponsive(60),
+  },
+  resultFoundText: {
+    color: Theme.TextColor,
+    fontSize: horizontalResponsive(16),
+    fontFamily: Fonts.Poppins500,
+  },
+  resultFOoundHeader:{
+    paddingTop: verticalResponsive(30),
+    paddingBottom: verticalResponsive(5),
   }
 });

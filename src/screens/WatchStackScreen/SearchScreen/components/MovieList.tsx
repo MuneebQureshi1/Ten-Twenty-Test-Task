@@ -16,9 +16,13 @@ import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type MovieListProps = {
   search: string;
+  setTotalMoviesNumber: (count: number) => void;
 };
 
-const MovieList: React.FC<MovieListProps> = ({search}) => {
+const MovieList: React.FC<MovieListProps> = ({
+  search,
+  setTotalMoviesNumber,
+}) => {
   const {updateMovieId} = useMovie();
   const navigation = useNavigation<any>();
   const {searchMovieApi} = useGetApi();
@@ -39,35 +43,39 @@ const MovieList: React.FC<MovieListProps> = ({search}) => {
     return () => clearTimeout(delayDebounce); // Cleanup timeout on unmount or re-run
   }, [search]);
 
+  useEffect(() => {
+    //@ts-ignore
+    if (searchedData?.results) {
+      //@ts-ignore
+      setTotalMoviesNumber(searchedData?.results?.length);
+    } //@ts-ignore
+  }, [searchedData?.results]);
+
   return (
     <View style={SearchScreenStyles.MovieListcontainer}>
       {loading ? (
-        <Loader size="large" color={Theme.buttonBackground} /> //@ts-ignore
+        <View style={SearchScreenStyles.h100}>
+          <Loader size="large" color={Theme.buttonBackground} />
+        </View> //@ts-ignore
       ) : searchedData?.results?.length === 0 ? (
         <CustomText style={SearchScreenStyles.noMovieFound}>
           {TextList.no_movies_found}
         </CustomText>
       ) : (
         <FlatList //@ts-ignore
-          data={searchedData?.results}
+          data={searchedData.results}
           keyExtractor={item => item.id.toString()}
           scrollEnabled={false}
-          contentContainerStyle={[
-            {
-              height: '100%',
-              flex: 1,
-              paddingBottom: verticalResponsive(60),
-            },
-          ]}
+          contentContainerStyle={SearchScreenStyles.movieFlatListConatiner}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                updateMovieId(item?.id);
+                updateMovieId(item.id);
                 navigation.navigate('DetailScreen');
               }}
               style={SearchScreenStyles.movieItem}>
               <Image
-                source={{uri: getImageUrl(item?.backdrop_path)}}
+                source={{uri: getImageUrl(item.backdrop_path)}}
                 style={SearchScreenStyles.MovieListimage}
               />
               <View style={SearchScreenStyles.MovieListtextContainer}>
