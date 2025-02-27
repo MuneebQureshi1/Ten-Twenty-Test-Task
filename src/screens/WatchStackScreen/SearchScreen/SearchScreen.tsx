@@ -52,7 +52,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({navigation}) => {
         </View>
       }>
       {/* {search.length === 0 ? <CategorySection /> : <MovieList />} */}
-      <MovieList />
+      <MovieList search={search} />
     </ScreenContainer>
   );
 };

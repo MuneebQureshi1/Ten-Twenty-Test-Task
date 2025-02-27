@@ -22,11 +22,18 @@ const useGetApi = () => {
       return response;
     } catch (err) {}
   };
+  const searchMovieApi = async (movieName: string) => {
+    try {
+      const response = await dataServer.get(moviesCurd.get_movie(movieName));
+      return response;
+    } catch (err) {}
+  };
 
   return {
     getAllUpcomingMoviesApi,
     getMoviesDetailApi,
     getMoviesTrailerApi,
+    searchMovieApi,
   };
 };
 

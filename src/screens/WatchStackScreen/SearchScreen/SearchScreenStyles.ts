@@ -5,7 +5,7 @@ import {
 } from '../../../utils/responsiveControlFunctions';
 import {Theme} from '../../../constants/Theme';
 import Fonts from '../../../constants/FontsFamily';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {heightPercentageToDP, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const SearchScreenStyles = StyleSheet.create({
   container: {
@@ -55,6 +55,7 @@ export const SearchScreenStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7F8FC',
     padding: 16,
+    height:heightPercentageToDP(90)
   },
   movieItem: {
     flexDirection: 'row',
@@ -84,4 +85,10 @@ export const SearchScreenStyles = StyleSheet.create({
     color: Theme.genreText,
     fontFamily: Fonts.Poppins500,
   },
+  noMovieFound:{
+    color: Theme.TextColor,
+    alignSelf: 'center',
+    fontSize: horizontalResponsive(15),
+    fontFamily: Fonts.Poppins600,
+  }
 });

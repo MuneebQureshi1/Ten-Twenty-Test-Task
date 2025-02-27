@@ -7,6 +7,9 @@ export const TextList={
     watch_trailer:"Watch Trailer",
     genres:"Genres",
     overview:'Overview',
-    search_placeholder:"TV shows, movies and more"
+    search_placeholder:"TV shows, movies and more",
+    no_movies_found:"No movies found.",
+    no_genre_available:'No genre available'
+
 
 }
