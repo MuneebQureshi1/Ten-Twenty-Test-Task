@@ -7,7 +7,16 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "bundle:android": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "release": "cd android && ./gradlew assembleRelease && cd ..",
+    "pod": "cd ios && pod install && cd ..",
+    "bundle": "cd android && ./gradlew bundleRelease && cd ..",
+    "gradleClean": "cd android && ./gradlew clean && cd ..",
+    "deleter": "rm -rf ./android/app/src/main/res/drawable-*",
+    "createAAB": "yarn gradleClean &&  yarn bundle:android && yarn deleter  && yarn bundle",
+    "createAPK": "yarn gradleClean &&  yarn bundle:android && yarn deleter  && yarn release",
+    "createAABandAPK": "yarn gradleClean && yarn bundle:android  && yarn deleter &&  yarn bundle && yarn release"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^11.4.1",
