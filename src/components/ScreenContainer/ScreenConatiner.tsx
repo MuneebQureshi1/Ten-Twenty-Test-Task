@@ -21,10 +21,6 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   backgroundColor = Theme.mainBackgroundColor,
   headerComponent,
 }) => {
-  // const navigation = useNavigation<any>();
-  // const routes = useNavigationState(state => state.routes);
-  // const currentScreen = routes[routes.length - 1].name;
-  // const specificScreens = ['WatchScreen'];
   return (
     <SafeAreaView
       style={[globalStyle.Flex1, !loading && style, {backgroundColor}]}>

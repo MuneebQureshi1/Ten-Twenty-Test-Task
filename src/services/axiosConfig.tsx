@@ -3,7 +3,6 @@ import NetInfo from '@react-native-community/netinfo';
 import {EnvironmentVariable} from '../constants/env';
 
 const UseAccessToken = async () => {
-  //   const AccessTokken = await AsyncStorage.getItem('AccessTokken');
   const AccessTokken = '';
   if (AccessTokken) {
     return AccessTokken;
@@ -12,30 +11,6 @@ const UseAccessToken = async () => {
   }
 };
 
-// function navigate() {
-//   AsyncStorage.clear();
-//   let _initialStateOfUserObject = {
-//     refreshToken: '',
-//     token: '',
-//     user: {
-//       email: '',
-//       fullName: '',
-//       firstName: '',
-//       lastname: '',
-//       userName: '',
-//       isPayment: false,
-//       // Phone_no: '',
-//       id: 0,
-//       isLoggedIn: false,
-//       playerID: '',
-//     },
-//   };
-//   store.dispatch(userData(_initialStateOfUserObject));
-//   if (navigationRef.isReady()) {
-//     //@ts-ignore
-//     navigationRef.navigate('SignInScreen', {formDispatch: true});
-//   }
-// }
 const dataServer = axios.create({
   baseURL: EnvironmentVariable.PROD_URL,
   timeout: 100000,
