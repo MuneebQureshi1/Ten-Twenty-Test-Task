@@ -136,5 +136,27 @@ export const globalStyle = StyleSheet.create({
   },
   selfCenter:{
     alignSelf:'center'
-  }
+  },
+  customInputContainer: {
+    width: '100%',
+    marginTop: verticalResponsive(30),
+  },
+  customText: {
+    fontSize: horizontalResponsive(14),
+    marginBottom: verticalResponsive(5),
+  },
+  inputContainer: {
+    width: '100%',
+  },
+  innerContainer: {
+    borderBottomWidth: 0,
+    paddingHorizontal: horizontalResponsive(10),
+    height: horizontalResponsive(52),
+    borderRadius: horizontalResponsive(30),
+    backgroundColor: Theme.screenBackground,
+  },
+  input: {
+    fontSize: horizontalResponsive(16),
+    fontFamily: Fonts.Poppins400,
+  },
 });

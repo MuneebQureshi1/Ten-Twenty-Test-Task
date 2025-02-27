@@ -14,10 +14,14 @@ export const Theme={
     blackWithOpacity9:'rgba(0,0,0,0.8)',
     blackWithOpacity5:'rgba(0,0,0,0.5)',
     blackWithOpacity1:'rgba(0,0,0,1)',
+    blackWithOpacity3:'rgba(0, 0, 0, 0.3)',
     screenBackground:'rgba(246, 246, 250, 1)',
     buttonBackground:'rgba(97, 195, 242, 1)',
     disabledButton:"#b0b0b0",
     overviewText:'rgba(143, 143, 143, 1)',
+    placeHolder:'rgba(32, 44, 67, 0.3)',
+    shimmerMainColor:'#cccccc',
+    shimmerLayerColor:'#DDDDDD'
 
 
 }
