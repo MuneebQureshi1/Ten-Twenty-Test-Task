@@ -69,11 +69,10 @@ export const SearchScreenStyles = StyleSheet.create({
     width: horizontalResponsive(130),
     height: verticalResponsive(100),
     borderRadius: horizontalResponsive(10),
-    borderWidth: 1,
   },
   MovieListtextContainer: {
     flex: 1,
-    marginLeft: 12,
+    marginLeft: horizontalResponsive(12),
   },
   MovieListtitle: {
     fontSize: horizontalResponsive(16),

@@ -9,12 +9,16 @@ import {getImageUrl} from '../../../../utils/Helper';
 import {CustomText} from '../../../../components/CustomText/CustomText';
 import Loader from '../../../../components/Loader/Loader';
 import {TextList} from '../../../../constants/TextList';
+import {useMovie} from '../../../../context/MovieContext';
+import {useNavigation} from '@react-navigation/native';
 
 type MovieListProps = {
   search: string;
 };
 
 const MovieList: React.FC<MovieListProps> = ({search}) => {
+  const {updateMovieId} = useMovie();
+  const navigation = useNavigation<any>();
   const {searchMovieApi} = useGetApi();
   const {
     data: searchedData,
@@ -49,7 +53,12 @@ const MovieList: React.FC<MovieListProps> = ({search}) => {
             SearchScreenStyles.categoryFlatListContainerStyle
           }
           renderItem={({item}) => (
-            <View style={SearchScreenStyles.movieItem}>
+            <TouchableOpacity
+              onPress={() => {
+                updateMovieId(item?.id);
+                navigation.navigate('DetailScreen');
+              }}
+              style={SearchScreenStyles.movieItem}>
               <Image
                 source={{uri: getImageUrl(item?.backdrop_path)}}
                 style={SearchScreenStyles.MovieListimage}
@@ -69,7 +78,7 @@ const MovieList: React.FC<MovieListProps> = ({search}) => {
                   color={Theme.buttonBackground}
                 />
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
