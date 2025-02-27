@@ -1,12 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {WatchStackParamsList} from '../../../models/WatchStackParamsList';
 import {ScreenContainer} from '../../../components/ScreenContainer/ScreenConatiner';
-import {WatchMainScreenStyles} from '../WatchMainScreen/WatchScreenStyles';
-import {CustomText} from '../../../components/CustomText/CustomText';
-import {globalStyle} from '../../../styles/globalStyles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TextList} from '../../../constants/TextList';
 import {
   horizontalResponsive,
@@ -45,14 +41,23 @@ const SearchScreen: React.FC<SearchScreenProps> = ({navigation}) => {
                 type="feather"
                 size={horizontalResponsive(15)}
                 color={Theme.TextColor}
-                onPress={() => setSearch('')}
+                onPress={() => {
+                  if (search.length !== 0) {
+                    setSearch('');
+                  } else {
+                    navigation.goBack();
+                  }
+                }}
               />
             }
           />
         </View>
       }>
-      {/* {search.length === 0 ? <CategorySection /> : <MovieList />} */}
-      <MovieList search={search} />
+      {search.length === 0 ? (
+        <CategorySection />
+      ) : (
+        <MovieList search={search} />
+      )}
     </ScreenContainer>
   );
 };

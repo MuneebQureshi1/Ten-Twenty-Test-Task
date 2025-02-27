@@ -52,9 +52,14 @@ export const WatchMainScreenStyles = StyleSheet.create({
     listContainer: {
       backgroundColor: Theme.screenBackground,
       flex: 1,
+      height:"100%"
     },
     flatListContent: {
       marginTop: verticalResponsive(10),
       alignItems: 'center',
+      flex:1,
+      height:"100%",
+      paddingBottom: verticalResponsive(90),
+
     },
   });

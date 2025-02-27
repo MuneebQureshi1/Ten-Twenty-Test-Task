@@ -11,6 +11,8 @@ import Loader from '../../../../components/Loader/Loader';
 import {TextList} from '../../../../constants/TextList';
 import {useMovie} from '../../../../context/MovieContext';
 import {useNavigation} from '@react-navigation/native';
+import {verticalResponsive} from '../../../../utils/responsiveControlFunctions';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type MovieListProps = {
   search: string;
@@ -28,7 +30,8 @@ const MovieList: React.FC<MovieListProps> = ({search}) => {
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      if (search) {
+      const trimSearch = search.trim();
+      if (trimSearch) {
         callApi(search);
       }
     }, 500); // Delay API call by 500ms
@@ -49,9 +52,13 @@ const MovieList: React.FC<MovieListProps> = ({search}) => {
           data={searchedData?.results}
           keyExtractor={item => item.id.toString()}
           scrollEnabled={false}
-          contentContainerStyle={
-            SearchScreenStyles.categoryFlatListContainerStyle
-          }
+          contentContainerStyle={[
+            {
+              height: '100%',
+              flex: 1,
+              paddingBottom: verticalResponsive(60),
+            },
+          ]}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {

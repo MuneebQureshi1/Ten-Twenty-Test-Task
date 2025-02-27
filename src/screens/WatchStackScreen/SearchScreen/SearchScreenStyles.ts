@@ -34,7 +34,7 @@ export const SearchScreenStyles = StyleSheet.create({
   categoryFlatListContainerStyle: {
     height: hp(90),
     backgroundColor: Theme.screenBackground,
-    paddingTop:verticalResponsive(20)
+    paddingTop:verticalResponsive(20),
   },
   overlay: {
     ...StyleSheet.absoluteFillObject, // Covers entire image
@@ -54,8 +54,7 @@ export const SearchScreenStyles = StyleSheet.create({
   MovieListcontainer: {
     flex: 1,
     backgroundColor: '#F7F8FC',
-    padding: 16,
-    height:heightPercentageToDP(90)
+    padding: horizontalResponsive(16),
   },
   movieItem: {
     flexDirection: 'row',

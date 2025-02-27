@@ -28,7 +28,6 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
   );
   return (
     <ScreenContainer
-      style={WatchMainScreenStyles.screenContainer}
       headerComponent={
         <View style={WatchMainScreenStyles.headerContainer}>
           <View style={globalStyle.verticalAlignment}>
