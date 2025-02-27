@@ -21,6 +21,7 @@ export const MovieDetailScreenStyles = StyleSheet.create({
         ...globalStyle.row,
         gap: horizontalResponsive(20),
         marginLeft: horizontalResponsive(20),
+        marginTop:Platform.OS=='android'? verticalResponsive(10):0
       },
       watchText: {
         color: Theme.bottomBarActiveText,

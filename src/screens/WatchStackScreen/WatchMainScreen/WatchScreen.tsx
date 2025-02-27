@@ -1,4 +1,4 @@
-import {FlatList, View} from 'react-native';
+import {FlatList, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ScreenContainer} from '../../../components/ScreenContainer/ScreenConatiner';
 import {CustomText} from '../../../components/CustomText/CustomText';
@@ -36,13 +36,15 @@ const WatchScreen: React.FC<WatchScreenProps> = ({navigation}) => {
               {TextList.watch}
             </CustomText>
           </View>
-          <View style={globalStyle.verticalAlignment}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SearchScreen')}
+            style={globalStyle.verticalAlignment}>
             <AntDesign
               name={'search1'}
               size={horizontalResponsive(14.25)}
               color={Theme.TextColor}
             />
-          </View>
+          </TouchableOpacity>
         </View>
       }>
       <View style={WatchMainScreenStyles.listContainer}>
