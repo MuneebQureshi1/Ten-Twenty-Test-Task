@@ -21,7 +21,7 @@ export const Theme={
     overviewText:'rgba(143, 143, 143, 1)',
     placeHolder:'rgba(32, 44, 67, 0.3)',
     shimmerMainColor:'#cccccc',
-    shimmerLayerColor:'#DDDDDD'
-
+    shimmerLayerColor:'#DDDDDD',
+    genreText:'rgba(219, 219, 223, 1)',
 
 }

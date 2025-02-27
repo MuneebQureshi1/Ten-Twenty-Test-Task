@@ -51,4 +51,37 @@ export const SearchScreenStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  MovieListcontainer: {
+    flex: 1,
+    backgroundColor: '#F7F8FC',
+    padding: 16,
+  },
+  movieItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Theme.screenBackground,
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 12,
+  },
+  MovieListimage: {
+    width: horizontalResponsive(130),
+    height: verticalResponsive(100),
+    borderRadius: horizontalResponsive(10),
+    borderWidth: 1,
+  },
+  MovieListtextContainer: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  MovieListtitle: {
+    fontSize: horizontalResponsive(16),
+    fontFamily: Fonts.Poppins500,
+    color: Theme.TextColor,
+  },
+  MovieListgenre: {
+    fontSize: horizontalResponsive(12),
+    color: Theme.genreText,
+    fontFamily: Fonts.Poppins500,
+  },
 });

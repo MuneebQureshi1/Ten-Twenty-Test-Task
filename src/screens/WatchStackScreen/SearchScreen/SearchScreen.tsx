@@ -17,6 +17,7 @@ import CustomInput from '../../../components/CustomInput/CustomInput';
 import {Icon} from '@rneui/base';
 import CategorySection from './components/CategorySection';
 import {SearchScreenStyles} from './SearchScreenStyles';
+import MovieList from './components/MovieList';
 interface SearchScreenProps {
   navigation: NativeStackNavigationProp<WatchStackParamsList, 'SearchScreen'>;
 }
@@ -27,7 +28,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({navigation}) => {
       headerComponent={
         <View style={SearchScreenStyles.searchHeader}>
           <CustomInput
-            placeholder="TV shows, movies and more"
+            placeholder={TextList.search_placeholder}
             value={search}
             onChangeText={setSearch}
             leftIcon={
@@ -50,11 +51,10 @@ const SearchScreen: React.FC<SearchScreenProps> = ({navigation}) => {
           />
         </View>
       }>
-      <CategorySection />
+      {/* {search.length === 0 ? <CategorySection /> : <MovieList />} */}
+      <MovieList />
     </ScreenContainer>
   );
 };
 
 export default SearchScreen;
-
-const styles = StyleSheet.create({});

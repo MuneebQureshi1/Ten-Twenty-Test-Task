@@ -6,6 +6,7 @@ export const TextList={
     get_tickets:"Get Tickets",
     watch_trailer:"Watch Trailer",
     genres:"Genres",
-    overview:'Overview'
+    overview:'Overview',
+    search_placeholder:"TV shows, movies and more"
 
 }
